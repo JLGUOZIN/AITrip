@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itinify - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="logo-text">Itinify</h1>
+            <p class="tagline">Your AI-powered travel companion</p>
+        </header>
+        
+        <div class="auth-container">
+            <div class="tab-nav">
+                <button class="tab-link active" onclick="switchTab('login')">Login</button>
+                <button class="tab-link" onclick="switchTab('register')">Register</button>
+            </div>
+            
+            <div id="login-tab" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Sign in to your account</h3>
+                        <p class="card-subtitle">Enter your details to access your trips</p>
+                    </div>
+                    
+                    {% if login_error %}
+                    <div class="alert alert-error">{{ login_error }}</div>
+                    {% endif %}
+                    
+                    <form id="login-form" method="post" action="{{ url_for('login') }}">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                            <div id="email-error" class="error-text">Email address is required.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <div id="password-error" class="error-text">Password is required.</div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <p>Don't have an account? <a class="link" onclick="switchTab('register')">Register now</a></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="register-tab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Create a new account</h3>
+                        <p class="card-subtitle">Start planning your next adventure</p>
+                    </div>
+                    
+                    {% if register_error %}
+                    <div class="alert alert-error">{{ register_error }}</div>
+                    {% endif %}
+                    
+                    {% if register_success %}
+                    <div class="alert alert-success">{{ register_success }}</div>
+                    {% endif %}
+                    
+                    <form id="register-form" method="post" action="{{ url_for('register') }}">
+                        <div class="form-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" name="email" placeholder="Enter your email address" required>
+                            <div id="reg-email-error" class="error-text">Email address is required.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg-password">Password</label>
+                            <input type="password" id="reg-password" name="password" placeholder="Create a password" required>
+                            <div id="reg-password-error" class="error-text">Password is required.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg-confirm-password">Confirm Password</label>
+                            <input type="password" id="reg-confirm-password" name="confirm_password" placeholder="Confirm your password" required>
+                            <div id="reg-confirm-password-error" class="error-text">Please confirm your password.</div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <p>Already have an account? <a class="link" onclick="switchTab('login')">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>&copy; 2024 Itinify. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html> 
