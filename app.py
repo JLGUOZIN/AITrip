@@ -2,16 +2,21 @@
 import re
 import os
 import uuid
+
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from auth import AuthManager
 from itinerary_generator import generate_itinerary
 from booking import search_flights, search_hotels
 from budget import estimate_budget
 from openai_integration import ai_planner  # Import from the renamed module with correct variable
+from pyngrok import ngrok
 
 # Initialize Flask app
 app = Flask(__name__)
+load_dotenv()
 app.secret_key = "itinify-secret-key"  # For session management
+ngrok.set_auth_token(os.environ.get("NGROK_AUTH_TOKEN"))
 
 # Initialize the AuthManager for user auth and data storage
 auth_manager = AuthManager()
@@ -296,4 +301,5 @@ def chat():
         }), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True) 
+    public_url = ngrok.connect("5000")
+    app.run(port=5000)

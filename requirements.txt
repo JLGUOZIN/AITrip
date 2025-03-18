@@ -2,3 +2,4 @@ gradio==4.44.1
 openai>=1.6.0
 python-dotenv==1.0.0
 requests>=2.31.0
+pyngrok
